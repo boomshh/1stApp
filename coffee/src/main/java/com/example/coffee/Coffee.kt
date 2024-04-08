@@ -1,5 +1,22 @@
 package com.example.coffee
 
+fun main() {
+
+    // Immutable List - you cannot add items after the initilization
+    val shoppingList = listOf("Processor", "RAM", "Graphics Card", "SSD")
+
+    // Mutable List - you can add items later and midify
+    val shoppingList2 = mutableListOf("Processor", "RAM", "Graphics Card", "SSD")
+
+    shoppingList2.add("Cooling System")
+    shoppingList2.remove("RAM")
+
+    println(shoppingList2)
+}
+
+
+
+/*
 data class CoffeeDetails(
     val sugarCount: Int,
     val name : String,
@@ -49,3 +66,4 @@ fun makeCoffee(coffeeDetails: CoffeeDetails) {
     }
 
 }
+*/
