@@ -9,7 +9,29 @@ fun main() {
     val shoppingList2 = mutableListOf("Processor", "RAM", "Graphics Card", "SSD")
 
     shoppingList2.add("Cooling System")
+    println(shoppingList2)
     shoppingList2.remove("RAM")
+    println(shoppingList2)
+    shoppingList2.removeAt(2)
+    println(shoppingList2)
+    shoppingList2.add(2, "RAM")
+    println(shoppingList2)
+    println(shoppingList2[2])
+
+    shoppingList2[2] = "ADD"
+    shoppingList2.set(1, "Water Cooling")
+    println(shoppingList2)
+
+    val hasRAM = shoppingList2.contains("RAM")
+    if(hasRAM) {
+        println("Has RAM in the list")
+    } else {
+        println("No RAM in the List")
+    }
+
+    for(index in 0..shoppingList2.size - 1) {
+        println("item ${shoppingList2[index]} is at index $index")
+    }
 
     println(shoppingList2)
 }

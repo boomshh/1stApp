@@ -16,3 +16,4 @@ dependencyResolutionManagement {
 rootProject.name = "RockPaperScissors"
 include(":app")
 include(":coffee")
+include(":bankaccount")
