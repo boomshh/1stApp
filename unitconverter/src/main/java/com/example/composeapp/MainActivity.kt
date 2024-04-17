@@ -11,9 +11,12 @@ import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.height
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.width
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.ArrowDropDown
 import androidx.compose.material3.Button
+import androidx.compose.material3.DropdownMenu
+import androidx.compose.material3.DropdownMenuItem
 import androidx.compose.material3.ExperimentalMaterial3Api
 import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
@@ -75,13 +78,28 @@ fun UnitConverter() {
                     Text(text = "Select")
                     Icon(Icons.Default.ArrowDropDown, contentDescription = "Arrow Down")
                 }
+                DropdownMenu(expanded = false, onDismissRequest = { /*TODO*/ }) {
+                    DropdownMenuItem(text = { Text(text = "Centimeters") }, onClick = { /*TODO*/ })
+                    DropdownMenuItem(text = { Text(text = "Meters")}, onClick = { /*TODO*/ })
+                    DropdownMenuItem(text = { Text(text = "Feet")}, onClick = { /*TODO*/ })
+                    DropdownMenuItem(text = { Text(text = "Millimeters")}, onClick = { /*TODO*/ })
+
+                }
 
             }
+            Spacer(modifier = Modifier.width(16.dp))
 
             Box {
                 Button(onClick = { /*TODO*/ }) {
                     Text(text = "Select")
                     Icon(Icons.Default.ArrowDropDown, contentDescription = "")
+                }
+                DropdownMenu(expanded = false, onDismissRequest = { /*TODO*/ }) {
+                    DropdownMenuItem(text = { Text(text = "Centimeters") }, onClick = { /*TODO*/ })
+                    DropdownMenuItem(text = { Text(text = "Meters")}, onClick = { /*TODO*/ })
+                    DropdownMenuItem(text = { Text(text = "Feet")}, onClick = { /*TODO*/ })
+                    DropdownMenuItem(text = { Text(text = "Millimeters")}, onClick = { /*TODO*/ })
+
                 }
 
             }
