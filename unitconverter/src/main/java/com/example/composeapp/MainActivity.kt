@@ -25,6 +25,10 @@ import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextField
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
@@ -51,6 +55,15 @@ class MainActivity : ComponentActivity() {
 @OptIn(ExperimentalMaterial3Api::class)
 @Composable
 fun UnitConverter() {
+
+    var inputValue by remember { mutableStateOf("") }
+    var outputValue by remember { mutableStateOf("") }
+    var inputUnit by remember { mutableStateOf("Centimeters") }
+    var outputUnit by remember { mutableStateOf("Meters") }
+    var iExpanded by remember { mutableStateOf(false) }
+    var oExpanded by remember { mutableStateOf(false) }
+    val conversionFactor = remember { mutableStateOf(0.0) }
+
     // 열
     Column (
         modifier = Modifier.fillMaxSize(),
@@ -61,9 +74,11 @@ fun UnitConverter() {
         // 행
         Text(text = "Unit Converter")
         Spacer(modifier = Modifier.height(16.dp))
-        OutlinedTextField(value = "입력하세요", onValueChange = {
+        OutlinedTextField(value = inputValue, onValueChange = {
+            inputValue = it  
             // Here goes what should happen, when the value of our outlinedTextField changes
-        })
+        },
+            label = { Text(text = "Enter Value")})
         Spacer(modifier = Modifier.height(16.dp))
 
         Row {
