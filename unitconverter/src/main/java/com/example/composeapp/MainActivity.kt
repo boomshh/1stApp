@@ -59,16 +59,17 @@ fun UnitConverter() {
 
     var inputValue by remember { mutableStateOf("") }
     var outputValue by remember { mutableStateOf("") }
-    var inputUnit by remember { mutableStateOf("Centimeters") }
+    var inputUnit by remember { mutableStateOf("Meters") }
     var outputUnit by remember { mutableStateOf("Meters") }
     var iExpanded by remember { mutableStateOf(false) }
     var oExpanded by remember { mutableStateOf(false) }
-    val conversionFactor = remember { mutableStateOf(0.0) }
+    val conversionFactor = remember { mutableStateOf(1.0) }
+    val oConversionFactor = remember { mutableStateOf(1.0) }
 
     fun convertUnits() {
 
         val inputValueDouble = inputValue.toDoubleOrNull() ?: 0.0
-        val result = (inputValueDouble * conversionFactor.value * 100.0).roundToInt() / 100.0
+        val result = (inputValueDouble * conversionFactor.value * 100.0 / oConversionFactor.value).roundToInt() / 100.0
         outputValue = result.toString()
     }
 
@@ -83,7 +84,8 @@ fun UnitConverter() {
         Text(text = "Unit Converter")
         Spacer(modifier = Modifier.height(16.dp))
         OutlinedTextField(value = inputValue, onValueChange = {
-            inputValue = it  
+            inputValue = it
+            convertUnits()
             // Here goes what should happen, when the value of our outlinedTextField changes
         },
             label = { Text(text = "Enter Value")})
@@ -100,7 +102,7 @@ fun UnitConverter() {
             Box {
                 // Input Button
                 Button(onClick = { iExpanded = true }) {
-                    Text(text = "Select")
+                    Text(text = inputUnit)
                     Icon(Icons.Default.ArrowDropDown, contentDescription = "Arrow Down")
                 }
                 DropdownMenu(expanded = iExpanded, onDismissRequest = { iExpanded = false }) {
@@ -136,14 +138,34 @@ fun UnitConverter() {
             Box {
                 // Output Button
                 Button(onClick = { oExpanded = true }) {
-                    Text(text = "Select")
+                    Text(text = outputUnit)
                     Icon(Icons.Default.ArrowDropDown, contentDescription = "")
                 }
                 DropdownMenu(expanded = oExpanded, onDismissRequest = { oExpanded = false }) {
-                    DropdownMenuItem(text = { Text(text = "Centimeters") }, onClick = { /*TODO*/ })
-                    DropdownMenuItem(text = { Text(text = "Meters")}, onClick = { /*TODO*/ })
-                    DropdownMenuItem(text = { Text(text = "Feet")}, onClick = { /*TODO*/ })
-                    DropdownMenuItem(text = { Text(text = "Millimeters")}, onClick = { /*TODO*/ })
+                    DropdownMenuItem(text = { Text(text = "Centimeters") }, onClick = {
+                        oExpanded = false
+                        outputUnit = "Centimeters"
+                        oConversionFactor.value = 0.01
+                        convertUnits()
+                    })
+                    DropdownMenuItem(text = { Text(text = "Meters")}, onClick = {
+                        oExpanded = false
+                        outputUnit = "Meters"
+                        oConversionFactor.value = 1.00
+                        convertUnits()
+                    })
+                    DropdownMenuItem(text = { Text(text = "Feet")}, onClick = {
+                        oExpanded = false
+                        outputUnit = "Feet"
+                        oConversionFactor.value = 0.3048
+                        convertUnits()
+                    })
+                    DropdownMenuItem(text = { Text(text = "Millimeters")}, onClick = {
+                        oExpanded = false
+                        outputUnit = "Millimeters"
+                        oConversionFactor.value = 0.001
+                        convertUnits()
+                    })
 
                 }
 
@@ -151,7 +173,7 @@ fun UnitConverter() {
 
         }
         Spacer(modifier = Modifier.height(16.dp))
-        Text("Result:")
+        Text("Result: $outputValue $outputUnit")
     }
 }
 
