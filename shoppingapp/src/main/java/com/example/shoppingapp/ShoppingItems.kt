@@ -1,6 +1,7 @@
 package com.example.shoppingapp
 
 import androidx.compose.foundation.BorderStroke
+import androidx.compose.foundation.background
 import androidx.compose.foundation.border
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -8,9 +9,11 @@ import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.fillMaxSize
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.wrapContentSize
 import androidx.compose.foundation.lazy.LazyColumn
 import androidx.compose.foundation.lazy.items
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.text.BasicTextField
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.filled.Delete
 import androidx.compose.material.icons.filled.Edit
@@ -157,4 +160,46 @@ fun ShoppingListItem(
         }
 
     }
+}
+
+@Composable
+fun ShoppingItemEditor(item: ShoppingItems,
+                       onEditComplete: (String, Int) -> Unit) {
+
+    var editName by remember { mutableStateOf(item.name) }
+    var editQuantity by remember { mutableStateOf(item.quantity.toString()) }
+    var isEditing by remember { mutableStateOf(item.isEditing) }
+
+    Row (modifier = Modifier
+        .fillMaxWidth()
+        .background(Color.White)
+        .padding(8.dp),
+        horizontalArrangement = Arrangement.SpaceEvenly) {
+
+        Column {
+            BasicTextField(value = editName,
+                onValueChange = {editName = it},
+                singleLine = true,
+                modifier = Modifier
+                    .wrapContentSize()
+                    .padding(8.dp)) {
+            }
+
+            BasicTextField(value = editQuantity,
+                onValueChange = {editQuantity = it},
+                singleLine = true,
+                modifier = Modifier
+                    .wrapContentSize()
+                    .padding(8.dp)) {
+            }
+            
+            Button(onClick = {
+                isEditing = false
+                onEditComplete(editName, editQuantity.toIntOrNull() ?: 1)
+            }) {
+                Text(text = "Save")
+            }
+        }
+    }
+
 }
