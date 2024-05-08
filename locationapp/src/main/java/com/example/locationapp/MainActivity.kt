@@ -21,19 +21,21 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.core.app.ActivityCompat
+import androidx.lifecycle.viewmodel.compose.viewModel
 import com.example.locationapp.ui.theme.RockPaperScissorsTheme
 
 class MainActivity : ComponentActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContent {
+            val viewModel: LocationViewModel = viewModel()
             RockPaperScissorsTheme {
                 // A surface container using the 'background' color from the theme
                 Surface(
                     modifier = Modifier.fillMaxSize(),
                     color = MaterialTheme.colorScheme.background
                 ) {
-                    myApp()
+                    myApp(viewModel)
                 }
             }
         }
@@ -41,25 +43,29 @@ class MainActivity : ComponentActivity() {
 }
 
 @Composable
-fun myApp(
-) {
+fun myApp(viewModel: LocationViewModel) {
     val context = LocalContext.current
     val locationUtils = LocationUtils(context)
-    LocationDisplay(locationUtils = locationUtils, context = context)
+    LocationDisplay(locationUtils = locationUtils, context = context, viewModel)
 
 }
 
 @Composable
 fun LocationDisplay(
     locationUtils: LocationUtils,
-    context: Context
+    context: Context,
+    viewModel: LocationViewModel
 ) {
+
+    val location = viewModel.location.value
 
     val requestPermissionLauncher = rememberLauncherForActivityResult(
         contract = ActivityResultContracts.RequestMultiplePermissions(),
         onResult = { permissions ->
             if(permissions[Manifest.permission.ACCESS_COARSE_LOCATION] == true
                 && permissions[Manifest.permission.ACCESS_FINE_LOCATION] == true) {
+
+                locationUtils.requestLocationUpdates(viewModel = viewModel)
 
             } else {
                 // 권한을 요청
@@ -88,11 +94,16 @@ fun LocationDisplay(
         horizontalAlignment = Alignment.CenterHorizontally,
         verticalArrangement = Arrangement.Center
     ) {
-        Text(text = "Location not available")
+        if(location != null) {
+            Text(text = "Address : ${location.latitude} ${location.longitude}")
+        } else {
+            Text(text = "Location not available")
+        }
 
         Button(onClick = {
             if(locationUtils.hasLocationPermission(context)) {
                 // 권한이 승인됐다면 위치를 업데이트 할 것.
+                locationUtils.requestLocationUpdates(viewModel)
             } else {
                 // 위치 권한 요청할 것.
                 requestPermissionLauncher.launch(
