@@ -8,6 +8,12 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.RockPaperScissors">
+
+        <meta-data
+            android:name="com.google.android.geo.API_KEY"
+            android:value="AIzaSyAeyxTWH7auEUdJVKtFu9-55pp0L4Rz4vA"
+            />
+
         <activity
             android:name=".MainActivity"
             android:exported="true"
