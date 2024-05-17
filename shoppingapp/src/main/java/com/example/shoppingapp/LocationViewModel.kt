@@ -25,7 +25,7 @@ class LocationViewModel: ViewModel() {
                     latlng,
                     "AIzaSyAeyxTWH7auEUdJVKtFu9-55pp0L4Rz4vA"
                 )
-                _address.value = result.result
+                _address.value = result.results
             }
         } catch(e:Exception) {
             Log.d("res1", "${e.cause} ${e.message}")

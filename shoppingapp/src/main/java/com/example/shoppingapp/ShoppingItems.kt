@@ -121,6 +121,7 @@ fun ShoppingListApp(
                         editItem?.let {
                             it.name = editName
                             it.quantity = editQuantity
+                            it.address = address
                         }
                     })
                 } else {
@@ -151,7 +152,8 @@ fun ShoppingListApp(
                             val newItem = ShoppingItems(
                                 id = sItems.size + 1,
                                 name = itemName,
-                                quantity = itemQuantity.toInt()
+                                quantity = itemQuantity.toInt(),
+                                address = address
                             )
                             sItems = sItems + newItem
                             showDialog = false

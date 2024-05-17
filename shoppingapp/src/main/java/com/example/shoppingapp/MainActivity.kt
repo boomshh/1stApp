@@ -1,6 +1,7 @@
 package com.example.shoppingapp
 
 import android.os.Bundle
+import android.util.Log
 import androidx.activity.ComponentActivity
 import androidx.activity.compose.setContent
 import androidx.compose.foundation.layout.Arrangement
@@ -63,13 +64,14 @@ fun Navigation() {
                 context = context,
                 address = viewModel.address.value.firstOrNull()?.formatted_address ?: "No Address"
             )
+
         }
 
         dialog("locationscreen") {backstack ->
             viewModel.location.value?.let {
                 it1 ->
-                LocationSelectionScreen(location = it1, onLocationSelected = {
-                    viewModel.fetchAddress("${it.latitude}, ${it.longitude}")
+                LocationSelectionScreen(location = it1, onLocationSelected = { LocationData->
+                    viewModel.fetchAddress("${LocationData.latitude}, ${LocationData.longitude}")
                     navController.popBackStack()
                 })
             }
