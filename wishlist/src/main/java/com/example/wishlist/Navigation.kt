@@ -1,5 +1,6 @@
 package com.example.wishlist
 
+import androidx.compose.material.ExperimentalMaterialApi
 import androidx.compose.runtime.Composable
 import androidx.lifecycle.viewmodel.compose.viewModel
 import androidx.navigation.NavHostController
@@ -9,6 +10,7 @@ import androidx.navigation.compose.composable
 import androidx.navigation.compose.rememberNavController
 import androidx.navigation.navArgument
 
+@ExperimentalMaterialApi
 @Composable
 fun Navigation(viewModel: WishViewModel = viewModel(),
                navController: NavHostController = rememberNavController()) {
