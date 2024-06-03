@@ -149,6 +149,7 @@ fun Navigation(navController: NavController, viewModel: MainViewModel, pd: Paddi
         }
 
         composable(Screen.DrawerScreen.Account.route) {
+            AccountView()
 
         }
     }
