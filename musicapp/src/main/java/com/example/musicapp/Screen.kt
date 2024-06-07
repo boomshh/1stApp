@@ -13,9 +13,9 @@ sealed class Screen(val title: String, val route: String) {
             R.drawable.baseline_music_video_24
         )
 
-        object Libarary : BottomScreen(
-            "Libarary",
-            "libarary",
+        object Library : BottomScreen(
+            "Library",
+            "library",
             R.drawable.baseline_smart_display_24
         )
 
@@ -52,7 +52,7 @@ sealed class Screen(val title: String, val route: String) {
 val screensInBottom = listOf(
     Screen.BottomScreen.Home,
     Screen.BottomScreen.Browse,
-    Screen.BottomScreen.Libarary
+    Screen.BottomScreen.Library
 )
 
 val screensInDrawer = listOf(
