@@ -175,10 +175,12 @@ fun Navigation(navController: NavController, viewModel: MainViewModel, pd: Paddi
 
         composable(Screen.BottomScreen.Browse.bRoute) {
             //TODO ADD Browse SCREEN
+            BrowseView()
         }
 
         composable(Screen.BottomScreen.Library.bRoute) {
             //TODO ADD Library SCREEN
+            LibraryView()
         }
         composable(Screen.DrawerScreen.AddAccount.route) {
 
